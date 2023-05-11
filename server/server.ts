@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import JourneyRouter from "./routes/JourneyRouter.js";
-import { parse } from "./utils/parseCSV.js";
+import { processFile } from "./utils/parseCSV.js";
 
 const HEADERS = [
   "Departure",
@@ -15,11 +15,6 @@ const HEADERS = [
   "Covered distance (m)",
   "Duration (sec.)",
 ];
-
-parse("./2021-05.csv", HEADERS, (a: any): Promise<void> => {
-  console.log(a);
-  return Promise.resolve();
-});
 
 dotenv.config();
 
@@ -38,12 +33,17 @@ app.use((req, res, next) => {
 });
 
 const connectMongoose = async () => {
-  await mongoose.connect("mongodb://localhost:27017/BikeApp");
+  await mongoose.connect("mongodb://localhost:27017/BikeAppDb");
 };
 await connectMongoose();
 
 app.use("/journey", JourneyRouter);
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`App listening on port ${PORT}`);
+  try {
+    await processFile("./2021-05.csv", HEADERS);
+  } catch (e) {
+    console.error("error in loading");
+  }
 });

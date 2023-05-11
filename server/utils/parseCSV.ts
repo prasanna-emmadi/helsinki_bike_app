@@ -1,6 +1,5 @@
 import CSVParser from "csv-parser";
 import fs from "node:fs";
-import { insertMany } from "../controllers/JourneyController.js";
 
 export const parse = (
   fileName: string,
@@ -38,13 +37,14 @@ const toDbSchema = (record) => {
     departureStationName: record["Departure station name"],
     returnStationId: record["Return station id"],
     returnStationName: record["Return station name"],
-    coveredDistanceInMeters: record["Covered distance (m)"],
-    durationInSeconds: record["Covered distance (m)"],
+    coveredDistanceInMeters: parseInt(record["Covered distance (m)"]),
+    durationInSeconds: parseInt(record["Covered distance (m)"]),
   };
 };
 
-const processFile = async (fileName, headers) => {
+export const processFile = async (fileName, headers) => {
   let records = [];
+  let count = 0;
   const parser = fs.createReadStream(fileName).pipe(CSVParser(headers));
   // @ts-ignore
   for await (const record of parser) {
@@ -54,13 +54,16 @@ const processFile = async (fileName, headers) => {
     if (records.length === 100) {
       // push to the db every 100 records
       // convert the data and then push
-      const dbRecords = records.map((current_record) => {
+      const _dbRecords = records.map((current_record) => {
         return toDbSchema(current_record);
       });
       // put this to
-      insertMany(dbRecords);
+      //await insertMany(dbRecords);
+      count = count + 100;
+      console.log(`wrote records ${count}`);
       records = [];
     }
   }
+  console.log("done loading to db");
   return records;
 };
