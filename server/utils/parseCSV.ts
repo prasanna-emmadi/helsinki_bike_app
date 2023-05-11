@@ -1,34 +1,6 @@
 import CSVParser from "csv-parser";
 import fs from "node:fs";
 
-export const parse = (
-  fileName: string,
-  headers: Array<string>,
-  insert: (any) => Promise<void>
-) => {
-  const results: Array<any> = [];
-  let count = 0;
-  // every hundred record insert
-  fs.createReadStream(fileName)
-    .pipe(CSVParser(headers))
-    .on("data", (data: any) => {
-      // push to the database
-      //results.push(data);
-      //console.log(data);
-      // push to the database
-      if (count === 100) {
-        try {
-          insert(results);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    })
-    .on("end", () => {
-      console.log(" end " + count);
-    });
-};
-
 const toDbSchema = (record) => {
   return {
     departure: record["Departure"],
@@ -44,6 +16,7 @@ const toDbSchema = (record) => {
 
 export const processFile = async (fileName, headers) => {
   let records = [];
+  let skipLength = 1000;
   let count = 0;
   const parser = fs.createReadStream(fileName).pipe(CSVParser(headers));
   // @ts-ignore
@@ -51,7 +24,7 @@ export const processFile = async (fileName, headers) => {
     // Work with each record
     // @ts-ignore
     records.push(record);
-    if (records.length === 100) {
+    if (records.length === skipLength) {
       // push to the db every 100 records
       // convert the data and then push
       const _dbRecords = records.map((current_record) => {
@@ -59,7 +32,7 @@ export const processFile = async (fileName, headers) => {
       });
       // put this to
       //await insertMany(dbRecords);
-      count = count + 100;
+      count = count + skipLength;
       console.log(`wrote records ${count}`);
       records = [];
     }
