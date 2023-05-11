@@ -1,7 +1,7 @@
 import CSVParser from "csv-parser";
 import fs from "node:fs";
 
-const toDbSchema = (record) => {
+export const toDbSchema = (record) => {
   return {
     departure: record["Departure"],
     return: record["Return"],
@@ -10,7 +10,7 @@ const toDbSchema = (record) => {
     returnStationId: record["Return station id"],
     returnStationName: record["Return station name"],
     coveredDistanceInMeters: parseInt(record["Covered distance (m)"]),
-    durationInSeconds: parseInt(record["Covered distance (m)"]),
+    durationInSeconds: parseInt(record["Duration (sec)"]),
   };
 };
 
