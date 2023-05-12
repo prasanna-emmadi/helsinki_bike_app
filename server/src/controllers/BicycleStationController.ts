@@ -2,16 +2,12 @@ import BicycleStationModel, {
   IBicycleStation,
 } from "../models/bicycleStations.js";
 
-export const getBicycleStation = async (_req, res) => {
-  res.send("Here will be particular BicycleStation");
-};
-
-export const getAllBicycleStations = async (req, res) => {
+export const getBicycleStations = async (_req, res, next) => {
   try {
     const allBicycleStations = await BicycleStationModel.find();
     res.json(allBicycleStations);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    next(err);
   }
 };
 
