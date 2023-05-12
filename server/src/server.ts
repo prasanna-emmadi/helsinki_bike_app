@@ -28,7 +28,6 @@ app.use((req, _res, next) => {
   next();
 });
 
-//
 await connectMongoose();
 
 app.use("/journey", JourneyRouter);

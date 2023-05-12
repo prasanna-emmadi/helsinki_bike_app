@@ -5,6 +5,7 @@ export const processFile = async (
   fileName: string,
   headers: Array<string>,
   toDbSchema: (any) => any,
+  writeCb: (any) => void,
   filterFunction: (any) => boolean
 ) => {
   let records = [];
@@ -26,7 +27,7 @@ export const processFile = async (
       // push to the db every 100 records
       // convert the data and then push
       // put this to
-      //await insertMany(records);
+      await writeCb(records);
       count = count + skipLength;
       //console.log(`wrote records ${count}`);
       //console.log(records[0]);
@@ -38,6 +39,8 @@ export const processFile = async (
     // insert
     count = count + records.length;
     // push
+    await writeCb(records);
+
     records = [];
   }
   console.log("done loading to db from file " + fileName);

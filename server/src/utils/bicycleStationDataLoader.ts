@@ -1,5 +1,7 @@
+import { insertMany } from "../controllers/JourneyController.js";
 import { IBicycleStation } from "../models/bicycleStations.js";
 import { processFile } from "./parseCSV.js";
+import { parseFloatWithDefault, parseIntWithDefault } from "./stringUtil.js";
 
 const HEADERS = [
   "ID",
@@ -21,18 +23,22 @@ const FILES = ["./data/bicycle_stations.csv"];
 
 export const toDbSchema = (record) => {
   return {
-    ID: parseInt(record["ID"]),
-    FID: parseInt(record["FID"]),
+    ID: parseIntWithDefault(record["ID"]),
+    FID: parseIntWithDefault(record["FID"]),
     Nimi: record["Nimi"],
     Namn: record["Namn"],
     Osoite: record["Osoite"],
     Address: record["Address"],
     Stad: record["Stad"],
     Operaattor: record["Operaattor"],
-    Kapasiteet: parseInt(record["Kapasiteet"]),
-    x: parseFloat(record["x"]),
-    y: parseFloat(record["y"]),
+    Kapasiteet: parseIntWithDefault(record["Kapasiteet"]),
+    x: parseFloatWithDefault(record["x"]),
+    y: parseFloatWithDefault(record["y"]),
   };
+};
+
+const writeCb = async (records) => {
+  await insertMany(records);
 };
 
 export const loadBicycleStationData = async () => {
@@ -42,7 +48,7 @@ export const loadBicycleStationData = async () => {
     return false;
   };
   const promises = FILES.map((fileName) => {
-    return processFile(fileName, HEADERS, toDbSchema, filterFunction);
+    return processFile(fileName, HEADERS, toDbSchema, writeCb, filterFunction);
   });
 
   try {
