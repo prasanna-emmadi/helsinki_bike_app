@@ -175,12 +175,12 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "\\.[jt]sx?$": "ts-jest",
-  },
-  globals: {
-    "ts-jest": {
-      useESM: true,
-    },
+    "\\.[jt]sx?$": [
+      "ts-jest",
+      {
+        useESM: true,
+      },
+    ],
   },
   moduleNameMapper: {
     "(.+)\\.js": "$1",
