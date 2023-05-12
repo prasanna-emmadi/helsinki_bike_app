@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { toDbSchema } from "../utils/journeyDataLoader";
+import { toDbSchema } from "../utils/journeyDataLoader.js";
 
 describe("parseCSV", () => {
   test("toDbSchema", () => {

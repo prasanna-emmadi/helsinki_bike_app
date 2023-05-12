@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "ts-node --esm ./server.ts",
+    "start": "ts-node --esm ./src/server.ts",
     "watch": "ts-node-dev --respawn server.ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
