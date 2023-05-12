@@ -9,6 +9,10 @@
 ## Mongoose db
 - https://dev.to/hakimraissi/pagination-with-express-and-mongoose-pnh
 
+### Troubleshooting 
+#### Mongodb
+- https://stackoverflow.com/questions/57848302/how-to-solve-command-find-requires-authentication-using-node-js-and-mongoose
+
 ## Testing 
 - https://blog.logrocket.com/node-js-express-test-driven-development-jest/
 - 
