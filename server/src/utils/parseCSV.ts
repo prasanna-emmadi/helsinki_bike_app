@@ -10,6 +10,7 @@ export const processFile = async (
   let records = [];
   let skipLength = 1000;
   let count = 0;
+  console.log("writing " + fileName);
   const parser = fs.createReadStream(fileName).pipe(CSVParser(headers));
   // @ts-ignore
   for await (const record of parser) {
@@ -27,11 +28,18 @@ export const processFile = async (
       // put this to
       //await insertMany(records);
       count = count + skipLength;
-      console.log(`wrote records ${count}`);
-      console.log(records[0]);
+      //console.log(`wrote records ${count}`);
+      //console.log(records[0]);
       records = [];
     }
   }
-  console.log("done loading to db");
+
+  if (records.length > 0) {
+    // insert
+    count = count + records.length;
+    // push
+    records = [];
+  }
+  console.log("done loading to db from file " + fileName);
   return records;
 };

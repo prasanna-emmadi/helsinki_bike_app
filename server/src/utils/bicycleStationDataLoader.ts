@@ -44,5 +44,11 @@ export const loadBicycleStationData = async () => {
   const promises = FILES.map((fileName) => {
     return processFile(fileName, HEADERS, toDbSchema, filterFunction);
   });
-  await Promise.all(promises);
+
+  try {
+    await Promise.all(promises);
+  } catch (e) {
+    console.error("Error in loading bicycleStations");
+    return Promise.reject(e);
+  }
 };
