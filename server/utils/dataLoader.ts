@@ -1,5 +1,7 @@
-import { insertMany } from "../controllers/JourneyController.js";
+import { loadBicycleStationData } from "./bicycleStationDataLoader";
+import { loadJourneyData } from "./journeyDataLoader";
 
 export const loadData = async () => {
-  await insertMany([]);
+  await loadBicycleStationData();
+  await loadJourneyData();
 };

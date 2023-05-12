@@ -11,7 +11,7 @@ describe("parseCSV", () => {
       "Return station id": "return id",
       "Return station name": "return name",
       "Covered distance (m)": 100,
-      "Duration (sec)": 100,
+      "Duration (sec.)": 100,
     };
 
     const actual = toDbSchema(record);

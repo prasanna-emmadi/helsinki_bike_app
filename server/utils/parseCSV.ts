@@ -1,7 +1,7 @@
 import CSVParser from "csv-parser";
 import fs from "node:fs";
 
-export const toDbSchema = (record) => {
+export const toJourneyDbModel = (record) => {
   return {
     departure: record["Departure"],
     return: record["Return"],
@@ -10,11 +10,16 @@ export const toDbSchema = (record) => {
     returnStationId: record["Return station id"],
     returnStationName: record["Return station name"],
     coveredDistanceInMeters: parseInt(record["Covered distance (m)"]),
-    durationInSeconds: parseInt(record["Duration (sec)"]),
+    durationInSeconds: parseInt(record["Duration (sec.)"]),
   };
 };
 
-export const processFile = async (fileName, headers) => {
+export const processFile = async (
+  fileName,
+  headers,
+  toDbSchema: (any) => any,
+  filterFunction: (any) => boolean
+) => {
   let records = [];
   let skipLength = 1000;
   let count = 0;
@@ -23,17 +28,20 @@ export const processFile = async (fileName, headers) => {
   for await (const record of parser) {
     // Work with each record
     // @ts-ignore
-    records.push(record);
+    // if record is not filtered add to the collection
+    const dbRecord = toDbSchema(record);
+    if (!filterFunction(dbRecord)) {
+      // @ts-ignore
+      records.push(dbRecord);
+    }
     if (records.length === skipLength) {
       // push to the db every 100 records
       // convert the data and then push
-      const _dbRecords = records.map((current_record) => {
-        return toDbSchema(current_record);
-      });
       // put this to
-      //await insertMany(dbRecords);
+      //await insertMany(records);
       count = count + skipLength;
       console.log(`wrote records ${count}`);
+      console.log(records[0]);
       records = [];
     }
   }

@@ -3,18 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import JourneyRouter from "./routes/JourneyRouter.js";
-import { processFile } from "./utils/parseCSV.js";
-
-const HEADERS = [
-  "Departure",
-  "Return",
-  "Departure station id",
-  "Departure station name",
-  "Return station id",
-  "Return station name",
-  "Covered distance (m)",
-  "Duration (sec.)",
-];
+import { loadData } from "./utils/dataLoader.js";
 
 dotenv.config();
 
@@ -42,7 +31,7 @@ app.use("/journey", JourneyRouter);
 app.listen(PORT, async () => {
   console.log(`App listening on port ${PORT}`);
   try {
-    await processFile("./2021-05.csv", HEADERS);
+    await loadData();
   } catch (e) {
     console.error("error in loading");
   }
