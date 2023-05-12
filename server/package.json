@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "ts-node --esm ./src/server.ts",
+    "load:data": "ts-node --esm ./data/dataLoader.ts",
     "watch": "ts-node-dev --respawn server.ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
@@ -18,7 +19,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.2",
     "passport": "^0.6.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "supertest": "^6.3.3"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.21.5",

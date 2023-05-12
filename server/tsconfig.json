@@ -9,7 +9,7 @@
     "esModuleInterop": true,            
     "isolatedModules": true,
   },
-  "include": ["src"],
+  "include": ["src", "data/dataLoader.ts"],
   "exclude":[
     "./node_modules"
   ]
