@@ -31,6 +31,7 @@ app.use((req, _res, next) => {
 await connectMongoose();
 
 app.use("/journey", JourneyRouter);
+app.use("/bicyclestation", JourneyRouter);
 
 app.listen(PORT, async () => {
   console.log(`App listening on port ${PORT}`);
