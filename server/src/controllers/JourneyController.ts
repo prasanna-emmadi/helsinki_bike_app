@@ -1,15 +1,43 @@
 import JourneyModel, { IJourney } from "../models/journey.js";
 
-export const getJourney = async (_req, res) => {
-  res.send("Here will be particular Journey");
-};
-
-export const getAllJourneys = async (req, res) => {
+export const getJourneys = async (req, res, next) => {
   try {
-    const allJourneys = await JourneyModel.find();
-    res.json(allJourneys);
+    // We destructure the req.query object to get the page and limit variables from url
+
+    const { page = 1, limit = 10 } = req.query;
+
+    const journeys = await JourneyModel.find()
+      // We multiply the "limit" variables by one just to make sure we pass a number and not a string
+      .limit(limit * 1)
+      // I don't think i need to explain the math here
+      .skip((page - 1) * limit)
+      // We sort the data by the date of their creation in descending order (user 1 instead of -1 to get ascending order)
+      .sort({ createdAt: -1 });
+
+    // Getting the numbers of products stored in database
+    const count = await JourneyModel.countDocuments();
+
+    // change journey according to the specification
+    // For each journey show departure and
+    // return stations,
+    // covered distance in kilometers and
+    // duration in minutes
+
+    const modifiedJourneys = journeys.map((journey) => {
+      return {
+        ...journey,
+        coveredDistanceInKms: Math.ceil(journey.coveredDistanceInMeters / 1000),
+        durationInMinutes: Math.ceil(journey.durationInSeconds / 60),
+      };
+    });
+
+    res.json({
+      journeys: modifiedJourneys,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    next(err);
   }
 };
 
