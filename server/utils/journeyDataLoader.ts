@@ -1,4 +1,3 @@
-import { IJourney } from "../models/journey.js";
 import { processFile } from "./parseCSV.js";
 const HEADERS = [
   "Departure",
@@ -11,7 +10,11 @@ const HEADERS = [
   "Duration (sec.)",
 ];
 
-const FILES = ["./2021-05.csv", "./2021-06.csv", "./2021-07.csv"];
+const FILES = [
+  "./data/2021-05.csv",
+  "./data/2021-06.csv",
+  "./data/2021-07.csv",
+];
 
 export const toDbSchema = (record) => {
   return {
@@ -26,7 +29,7 @@ export const toDbSchema = (record) => {
   };
 };
 
-const filterFunction = (record: IJourney) => {
+const filterFunction = (record) => {
   // Don't import journeys that lasted for less than ten seconds
   // Don't import journeys that covered distances shorter than 10 meters
   if (record.durationInSeconds < 10 || record.coveredDistanceInMeters < 10) {

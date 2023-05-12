@@ -8,3 +8,7 @@
 
 ## Mongoose db
 - https://dev.to/hakimraissi/pagination-with-express-and-mongoose-pnh
+
+## Testing 
+- https://blog.logrocket.com/node-js-express-test-driven-development-jest/
+- 

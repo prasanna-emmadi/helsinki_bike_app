@@ -1,5 +1,5 @@
-import { IBicycleStation } from "../models/bicycleStations";
-import { processFile } from "./parseCSV";
+import { IBicycleStation } from "../models/bicycleStations.js";
+import { processFile } from "./parseCSV.js";
 
 const HEADERS = [
   "ID",
@@ -17,7 +17,7 @@ const HEADERS = [
   "y",
 ];
 
-const FILES = ["Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv"];
+const FILES = ["./data/bicycle_stations.csv"];
 
 export const toDbSchema = (record) => {
   return {
