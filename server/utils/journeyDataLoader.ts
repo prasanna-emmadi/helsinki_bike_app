@@ -26,16 +26,17 @@ export const toDbSchema = (record) => {
   };
 };
 
+const filterFunction = (record: IJourney) => {
+  // Don't import journeys that lasted for less than ten seconds
+  // Don't import journeys that covered distances shorter than 10 meters
+  if (record.durationInSeconds < 10 || record.coveredDistanceInMeters < 10) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export const loadJourneyData = async () => {
-  const filterFunction = (record: IJourney) => {
-    // Don't import journeys that lasted for less than ten seconds
-    // Don't import journeys that covered distances shorter than 10 meters
-    if (record.durationInSeconds < 10 || record.coveredDistanceInMeters < 10) {
-      return true;
-    } else {
-      return false;
-    }
-  };
   const promises = FILES.map((fileName) => {
     return processFile(fileName, HEADERS, toDbSchema, filterFunction);
   });

@@ -1,22 +1,9 @@
 import CSVParser from "csv-parser";
 import fs from "node:fs";
 
-export const toJourneyDbModel = (record) => {
-  return {
-    departure: record["Departure"],
-    return: record["Return"],
-    departureStationId: record["Departure station id"],
-    departureStationName: record["Departure station name"],
-    returnStationId: record["Return station id"],
-    returnStationName: record["Return station name"],
-    coveredDistanceInMeters: parseInt(record["Covered distance (m)"]),
-    durationInSeconds: parseInt(record["Duration (sec.)"]),
-  };
-};
-
 export const processFile = async (
-  fileName,
-  headers,
+  fileName: string,
+  headers: Array<string>,
   toDbSchema: (any) => any,
   filterFunction: (any) => boolean
 ) => {
