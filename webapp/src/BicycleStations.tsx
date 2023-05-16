@@ -1,30 +1,30 @@
 import React from "react";
-import { getJourneys } from "./api/api";
+import { getBicycleStations,  } from "./api/api";
 
-const Journeys = () => {
+const BicycleStations = () => {
     const [data, setData] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
-        const fetchJourneys = async () => {
+        const fetchStations = async () => {
         if (data.length === 0) {
             setLoading(true);
-            const journeys = await getJourneys();
-            setData(journeys)
+            const data = await getBicycleStations();
+            setData(data.bicycleStations)
             setLoading(false)
         }
         }
-        fetchJourneys()
+        fetchStations()
     }, [data, setData, setLoading])
 
-    const journeysText = "No of journeys " + data.length;
+    const noOfStations = "No of bicycle stations " + data.length;
     const isLoading = "isLoading " + loading;
 
     return (<>
-    <div>Journeys</div>
+    <div>BicycleStations</div>
     <div>{isLoading}</div>
-    <div>{journeysText}</div>
+    <div>{noOfStations}</div>
     </>)
 }
 
-export default Journeys;
+export default BicycleStations;

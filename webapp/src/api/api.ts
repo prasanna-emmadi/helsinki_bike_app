@@ -8,3 +8,8 @@ export const getJourneys = async () => {
 };
 
 
+export const getBicycleStations = async () => {
+    const response = await axios.get(`${url}/bicyclestation`);
+    return response.data;
+
+}
