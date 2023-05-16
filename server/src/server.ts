@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 
 import JourneyRouter from "./routes/JourneyRouter.js";
+import BicycleStationRouter from "./routes/BicycleStationRouter.js";
 import { connectMongoose } from "./utils/db.js";
 
 dotenv.config();
@@ -31,7 +32,7 @@ app.use((req, _res, next) => {
 await connectMongoose();
 
 app.use("/journey", JourneyRouter);
-app.use("/bicyclestation", JourneyRouter);
+app.use("/bicyclestation", BicycleStationRouter);
 
 app.listen(PORT, async () => {
   console.log(`App listening on port ${PORT}`);

@@ -1,11 +1,56 @@
 import BicycleStationModel, {
   IBicycleStation,
 } from "../models/bicycleStations.js";
+import JournyeModel from "../models/journey.js";
 
-export const getBicycleStations = async (_req, res, next) => {
+const getJouneyCountsForStation = async (stationName: string) => {
+    const totalNoOfJourneysStartingFromStation = await JournyeModel.find({ departureStationName: stationName}).count();
+    const totalNoOfJourneysEndingAtStation = await JournyeModel.find({ returnStationName: stationName}).count();
+    return {
+      totalNoOfJourneysEndingAtStation,
+      totalNoOfJourneysStartingFromStation
+    }
+}   
+
+export const getBicycleStations = async (req, res, next) => {
   try {
-    const allBicycleStations = await BicycleStationModel.find();
-    res.json(allBicycleStations);
+    const { page = 1, limit = 10 } = req.query;
+    let allBicycleStations = await BicycleStationModel.find()
+      // We multiply the "limit" variables by one just to make sure we pass a number and not a string
+      .limit(limit * 1)
+      // I don't think i need to explain the math here
+      .skip((page - 1) * limit)
+      // We sort the data by the date of their creation in descending order (user 1 instead of -1 to get ascending order)
+      .sort({ createdAt: -1 });
+
+      allBicycleStations = allBicycleStations.map(bicycleStation => {
+        return bicycleStation._doc
+      })
+
+    // Getting the numbers of products stored in database
+    const count = await BicycleStationModel.countDocuments();
+
+
+    // departureStationName, returnStationName match with Name field
+    // Total number of journeys starting from the station - departureStationName
+    // Total number of journeys ending at the station - returnStationName
+    const promises = allBicycleStations.map(bicycleStation => {
+      return getJouneyCountsForStation(bicycleStation.Nimi)
+      .then(result => {
+        return {
+          ...bicycleStation,
+          ...result
+        }
+      })
+    })
+
+    const bicycleStations = await Promise.all(promises)
+
+    res.json({
+      bicycleStations,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
   } catch (err) {
     next(err);
   }

@@ -6,13 +6,17 @@ export const getJourneys = async (req, res, next) => {
 
     const { page = 1, limit = 10 } = req.query;
 
-    const journeys = await JourneyModel.find()
+    let journeys = await JourneyModel.find()
       // We multiply the "limit" variables by one just to make sure we pass a number and not a string
       .limit(limit * 1)
       // I don't think i need to explain the math here
       .skip((page - 1) * limit)
       // We sort the data by the date of their creation in descending order (user 1 instead of -1 to get ascending order)
       .sort({ createdAt: -1 });
+
+    journeys = journeys.map(jouney => {
+        return jouney._doc
+      });
 
     // Getting the numbers of products stored in database
     const count = await JourneyModel.countDocuments();

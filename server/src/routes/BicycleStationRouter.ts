@@ -3,7 +3,7 @@ import express from "express";
 import {
   addBicycleStation,
   getBicycleStations,
-} from "../controllers/BicycleStationController";
+} from "../controllers/BicycleStationController.js";
 
 dotenv.config();
 const router = express.Router();
