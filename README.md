@@ -16,3 +16,7 @@
 ## Testing 
 - https://blog.logrocket.com/node-js-express-test-driven-development-jest/
 - 
+
+## Typescript
+- https://www.typescriptlang.org/docs/handbook/2/generics.html
+- 
