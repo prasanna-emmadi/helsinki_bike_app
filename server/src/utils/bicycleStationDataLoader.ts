@@ -1,4 +1,5 @@
-import { insertMany } from "../controllers/JourneyController.js";
+
+import { insertMany } from "../controllers/BicycleStationController.js";
 import { IBicycleStation } from "../models/bicycleStations.js";
 import { processFile } from "./parseCSV.js";
 import { parseFloatWithDefault, parseIntWithDefault } from "./stringUtil.js";
