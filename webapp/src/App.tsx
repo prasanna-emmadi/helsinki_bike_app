@@ -1,13 +1,10 @@
-import React from 'react';
 import './App.css';
-import Journeys from './Journeys';
-import BicycleStations from './BicycleStations';
+import AppRoutes from './Routes';
 
 function App() {
   return (
     <div className="App">
-      <Journeys />
-      <BicycleStations />
+      <AppRoutes />
     </div>
   );
 }
