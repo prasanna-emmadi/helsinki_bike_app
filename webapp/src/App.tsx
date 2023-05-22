@@ -1,11 +1,14 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import AppRoutes from './Routes';
+import AppContextProvider from './AppContext';
 
 
 function App() {
   return (
     <ChakraProvider>
-      <AppRoutes />
+      <AppContextProvider>
+        <AppRoutes />
+      </AppContextProvider>
     </ChakraProvider>
   );
 }

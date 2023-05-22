@@ -1,25 +1,11 @@
 import React from "react";
-import { Journey, getJourneys } from "./api/api";
+import { AppContext } from "./AppContext";
 
 const Journeys = () => {
-    const [data, setData] = React.useState<Array<Journey>>([]);
-    const [loading, setLoading] = React.useState(false);
+    const { journeys, journeysLoading } = React.useContext(AppContext)
 
-    React.useEffect(() => {
-        const fetchJourneys = async () => {
-            if (data.length === 0) {
-                setLoading(true);
-                const journeyResponse = await getJourneys();
-                console.log("journeysResponse", journeyResponse)
-                setData(journeyResponse.journeys)
-                setLoading(false)
-            }
-        }
-        fetchJourneys()
-    }, [data, setData, setLoading])
-
-    const journeysText = "No of journeys " + data.length;
-    const isLoading = "isLoading " + loading;
+    const journeysText = "No of journeys " + journeys.length;
+    const isLoading = "isLoading " + journeysLoading;
 
     return (<>
         <div>Journeys</div>

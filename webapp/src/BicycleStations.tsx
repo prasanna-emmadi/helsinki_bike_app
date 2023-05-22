@@ -1,29 +1,16 @@
 import React from "react";
-import { BicycleStation, getBicycleStations,  } from "./api/api";
+import { AppContext } from "./AppContext";
 
 const BicycleStations = () => {
-    const [data, setData] = React.useState<Array<BicycleStation>>([]);
-    const [loading, setLoading] = React.useState(false);
+    const { bicycleStations, bicycleStationsLoading } = React.useContext(AppContext)
 
-    React.useEffect(() => {
-        const fetchStations = async () => {
-        if (data.length === 0) {
-            setLoading(true);
-            const response = await getBicycleStations();
-            setData(response.bicycleStations)
-            setLoading(false)
-        }
-        }
-        fetchStations()
-    }, [data, setData, setLoading])
-
-    const noOfStations = "No of bicycle stations " + data.length;
-    const isLoading = "isLoading " + loading;
+    const noOfStations = "No of bicycle stations " + bicycleStations.length;
+    const isLoading = "isLoading " + bicycleStationsLoading;
 
     return (<>
-    <div>BicycleStations</div>
-    <div>{isLoading}</div>
-    <div>{noOfStations}</div>
+        <div>BicycleStations</div>
+        <div>{isLoading}</div>
+        <div>{noOfStations}</div>
     </>)
 }
 
