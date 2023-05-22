@@ -4,13 +4,17 @@ import BicycleStationModel, {
 import JournyeModel from "../models/journey.js";
 
 const getJouneyCountsForStation = async (stationName: string) => {
-    const totalNoOfJourneysStartingFromStation = await JournyeModel.find({ departureStationName: stationName}).count();
-    const totalNoOfJourneysEndingAtStation = await JournyeModel.find({ returnStationName: stationName}).count();
-    return {
-      totalNoOfJourneysEndingAtStation,
-      totalNoOfJourneysStartingFromStation
-    }
-}   
+  // The average distance of a journey starting from the station - for every journey found add distance / total count
+  // The average distance of a journey ending at the station - for every journey found add distance / total cuont
+  // Top 5 most popular return stations for journeys starting from the station - map {stationName, count} - get top 5
+  // Top 5 most popular departure stations for journeys ending at the station - map {stationName, count} - get top 5
+  const totalNoOfJourneysStartingFromStation = await JournyeModel.find({ departureStationName: stationName }).count();
+  const totalNoOfJourneysEndingAtStation = await JournyeModel.find({ returnStationName: stationName }).count();
+  return {
+    totalNoOfJourneysEndingAtStation,
+    totalNoOfJourneysStartingFromStation
+  }
+}
 
 export const getBicycleStations = async (req, res, next) => {
   try {
@@ -23,9 +27,9 @@ export const getBicycleStations = async (req, res, next) => {
       // We sort the data by the date of their creation in descending order (user 1 instead of -1 to get ascending order)
       .sort({ createdAt: -1 });
 
-      allBicycleStations = allBicycleStations.map(bicycleStation => {
-        return bicycleStation._doc
-      })
+    allBicycleStations = allBicycleStations.map(bicycleStation => {
+      return bicycleStation._doc
+    })
 
     // Getting the numbers of products stored in database
     const count = await BicycleStationModel.countDocuments();
@@ -36,12 +40,12 @@ export const getBicycleStations = async (req, res, next) => {
     // Total number of journeys ending at the station - returnStationName
     const promises = allBicycleStations.map(bicycleStation => {
       return getJouneyCountsForStation(bicycleStation.Nimi)
-      .then(result => {
-        return {
-          ...bicycleStation,
-          ...result
-        }
-      })
+        .then(result => {
+          return {
+            ...bicycleStation,
+            ...result
+          }
+        })
     })
 
     const bicycleStations = await Promise.all(promises)

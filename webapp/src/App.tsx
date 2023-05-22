@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Journeys from './Journeys';
 import BicycleStations from './BicycleStations';
