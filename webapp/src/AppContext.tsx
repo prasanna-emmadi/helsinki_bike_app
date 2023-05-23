@@ -45,7 +45,7 @@ const AppContextProvider = (props: Props) => {
 
     useEffect(() => {
         const fetchBicycleStations = async () => {
-            if (journeys.length === 0) {
+            if (bicycleStations.length === 0) {
                 try {
                     setBicycleStationsLoading(true);
                     const response = await getBicycleStations();

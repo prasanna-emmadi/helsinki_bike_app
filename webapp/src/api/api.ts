@@ -46,6 +46,8 @@ export interface BicycleStation {
     Kapasiteet: number;
     x: number;
     y: number;
+    totalNoOfJourneysStartingFromStation: number;
+    totalNoOfJourneysEndingAtStation: number;
 }
 
 export interface BicycleStationPaginatedResponse {
