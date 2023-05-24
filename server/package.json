@@ -10,7 +10,7 @@
     "download:csv": "node ./scripts/download_csv.js",
     "load:db": "ts-node --esm ./src/utils/dataLoader.ts",
     "watch": "ts-node-dev --respawn server.ts",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "cross-env-shell NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "author": "",
   "license": "ISC",
@@ -34,6 +34,7 @@
     "@types/jest": "^29.5.1",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.1.2",
+    "cross-env": "^7.0.3",
     "csv-parser": "^3.0.0",
     "nodemon": "^2.0.22",
     "npm-run-all": "^4.1.5",
