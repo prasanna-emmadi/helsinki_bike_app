@@ -12,7 +12,7 @@ export const processFile = async (
   let skipLength = 1000;
   let count = 0;
   console.log("writing " + fileName);
-  const parser = fs.createReadStream(fileName).pipe(CSVParser(headers));
+  const parser = fs.createReadStream(fileName).pipe(CSVParser({ headers, skipLines: 1 }));
   // @ts-ignore
   for await (const record of parser) {
     // Work with each record
