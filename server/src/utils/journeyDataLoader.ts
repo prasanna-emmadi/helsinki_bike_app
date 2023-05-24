@@ -13,9 +13,9 @@ const HEADERS = [
 ];
 
 const FILES = [
-  "./data/2021-05.csv",
-  "./data/2021-06.csv",
-  "./data/2021-07.csv",
+  "./csv/2021-05.csv",
+  "./csv/2021-06.csv",
+  "./csv/2021-07.csv",
 ];
 
 export const toDbSchema = (record) => {

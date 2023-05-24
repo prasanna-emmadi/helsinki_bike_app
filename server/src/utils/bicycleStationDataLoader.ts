@@ -20,7 +20,7 @@ const HEADERS = [
   "y",
 ];
 
-const FILES = ["./data/bicycle_stations.csv"];
+const FILES = ["./csv/bicycle_stations.csv"];
 
 export const toDbSchema = (record) => {
   return {

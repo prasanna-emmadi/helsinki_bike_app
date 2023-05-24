@@ -1,6 +1,6 @@
-import { loadBicycleStationData } from "../src/utils/bicycleStationDataLoader.js";
-import { connectMongoose } from "../src/utils/db.js";
-import { loadJourneyData } from "../src/utils/journeyDataLoader.js";
+import { loadBicycleStationData } from "./bicycleStationDataLoader.js";
+import { connectMongoose } from "./db.js";
+import { loadJourneyData } from "./journeyDataLoader.js";
 
 export const loadData = async () => {
   try {
