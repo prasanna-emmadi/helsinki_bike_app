@@ -16,7 +16,7 @@ services:
     build: ./server
     restart: always
     ports:
-      - "9000:9000"
+      - "3001:3001"
     volumes:
       - ./server:/server
       - /server/node_modules
