@@ -31,7 +31,7 @@ services:
     volumes:
       - ./data-node:/data/db
     ports:
-      - 27017:27017
+      - 27018:27017
     command: mongod --noauth
     networks:
       - webappnetwork

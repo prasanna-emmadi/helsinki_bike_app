@@ -7,6 +7,6 @@ COPY . ./
 # install dependencies
 RUN npm install
 # Make port 80 available to the world outside this container
-EXPOSE 80
+EXPOSE 3001
 # Run the app when the container launches
-CMD ["npm", "run", "docker:start"]
+CMD ["npm", "run", "start"]
