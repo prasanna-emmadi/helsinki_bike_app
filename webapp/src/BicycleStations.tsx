@@ -15,7 +15,6 @@ const BicycleStations = () => {
         <div>{noOfStations}</div>
         <OrderedList>
             {bicycleStations.map((bicycleStation, index) => {
-                console.log({ bicycleStation })
                 const content = `${bicycleStation.Nimi}`
                 return (<ListItem key={index}>
                     <Link to={`/bicyclestation/${bicycleStation.ID}`}>

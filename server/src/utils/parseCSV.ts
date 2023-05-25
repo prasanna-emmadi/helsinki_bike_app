@@ -29,8 +29,6 @@ export const processFile = async (
       // put this to
       await writeCb(records);
       count = count + skipLength;
-      //console.log(`wrote records ${count}`);
-      //console.log(records[0]);
       records = [];
     }
   }
