@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 const Home = () => {
     return (
         <>
-            <Heading>Home</Heading>
+            <Heading data-testid="home">Home</Heading>
             <OrderedList>
                 <ListItem>
-                    <Link to={"/journeys"}>
+                    <Link to={"/journeys"} data-testid="journeys">
                         Journeys
                     </Link>
                 </ListItem>
                 <ListItem>
-                    <Link to={"/bicyclestations"}>
+                    <Link to={"/bicyclestations"} data-testid="bicyclestations">
                         BicycleStations
                     </Link>
                 </ListItem>

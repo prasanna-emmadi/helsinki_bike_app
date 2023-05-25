@@ -9,14 +9,15 @@ const Journeys = () => {
     const isLoading = "isLoading " + journeysLoading;
     // list of journeys
     return (<>
-        <div>Journeys</div>
+        <div data-testid="journeys-page">Journeys</div>
         <div>{isLoading}</div>
         <div>{journeysText}</div>
         <OrderedList>
             {journeys.map((journey, index) => {
                 const { departureStationName, returnStationName } = journey
                 const content = `${departureStationName} - ${returnStationName}`
-                return (<ListItem key={index}>
+                const dataTestId = `journeys-page-${index}`
+                return (<ListItem key={index} data-testid={dataTestId}>
                     {content}
                 </ListItem>)
             })}
