@@ -1,5 +1,14 @@
 # Bicycle station
 
+## How to start locally
+
+- cd server
+- run setup db once
+  - npm run setup:db
+- npm start
+- cd webapp
+- npm start
+
 ## How to start the app via docker
 
 - docker-compose build -no-cache
