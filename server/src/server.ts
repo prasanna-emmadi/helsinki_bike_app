@@ -1,20 +1,18 @@
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 
 import JourneyRouter from "./routes/JourneyRouter.js";
 import BicycleStationRouter from "./routes/BicycleStationRouter.js";
 import { connectMongoose } from "./utils/db.js";
+import { PORT } from "./config.js"
 
-dotenv.config();
 
 const app: express.Express = express();
-const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
-  const emptyFn = () => {};
+  const emptyFn = () => { };
   console.log = emptyFn;
   console.error = emptyFn;
   console.info = emptyFn;
@@ -43,3 +41,5 @@ app.listen(PORT, async () => {
     console.error("error in loading");
   }
 });
+
+export default app;

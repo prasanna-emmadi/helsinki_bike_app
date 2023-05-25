@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "docker:start": "npm-run-all setup:db start",
-    "start": "ts-node --esm ./src/server.ts",
+    "start": "cross-env-shell NODE_ENV=development ts-node --esm ./src/server.ts",
+    "start:prod": "cross-env-shell NODE_ENV=production ts-node --esm ./src/server.ts",
     "setup:db": "npm-run-all download:csv load:db",
     "download:csv": "node ./scripts/download_csv.js",
     "load:db": "ts-node --esm ./src/utils/dataLoader.ts",
