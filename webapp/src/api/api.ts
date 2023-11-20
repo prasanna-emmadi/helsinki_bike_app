@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "http://localhost:3001";
+const url = process.env.REACT_APP_SERVERL_URL || "http://localhost:3001";
 
 export interface Journey {
     departure: string;
