@@ -39,4 +39,9 @@
 ## Typescript
 
 - https://www.typescriptlang.org/docs/handbook/2/generics.html
--
+
+
+## Deployment
+- App is deployed is here https://tourmaline-tarsier-62b7a9.netlify.app/
+- Rest Api is deployed on Render
+- MongoDb is hosted on MongoDb Atlas
